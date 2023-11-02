@@ -1,0 +1,53 @@
+.data 
+
+f1: .asciiz "Entre com o valor: "
+f2: .asciiz "Resposta: "
+
+.text 
+	
+	li $v0, 4
+    	la $a0, f1
+    	syscall
+    	
+    	li $v0, 5
+    	syscall
+    	move $t0, $v0
+    	
+    	#Soma 
+    	li $t1, 0 
+    	li $t2, 1 # Inicializa o contador para o loop
+    	
+loop: 
+	bgt $t2, $t0, quadrado 
+	add $t1, $t1, $t2 
+	addi $t2, $t2, 1 
+	j loop 
+	
+quadrado: 
+	mul $t3, $t1, $t1
+	add $t1, $t1, $t3
+	
+	li $t4, 0 
+    	li $t5, 1	
+loop1: 
+	bgt $t5, $t0, diferenca 
+	mul $t6, $t5, $t5
+	add $t4, $t4, $t6
+	addi $t5, $t5, 1 
+	j loop1
+
+diferenca: 
+	sub $t7, $t1, $t4
+	
+
+li $v0, 4
+la $a0, f2
+syscall
+
+li $v0, 1
+move $a0, $t5
+syscall
+
+li $v0, 10
+syscall
+		
